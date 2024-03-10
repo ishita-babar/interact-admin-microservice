@@ -27,6 +27,7 @@ func AddLog(c *fiber.Ctx) error {
 		log.Title = body.Title
 		log.Description = body.Description
 		log.Path = body.Path
+		log.Resource = models.RESOURCE(c.Get("Resource", ""))
 
 		timestamp, err := time.Parse(time.RFC3339, body.Timestamp)
 		if err == nil {

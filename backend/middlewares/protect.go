@@ -13,7 +13,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func verifyToken(tokenString string, user *models.LogUser) error {
+func verifyUserToken(tokenString string, user *models.LogUser) error {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
@@ -48,6 +48,29 @@ func verifyToken(tokenString string, user *models.LogUser) error {
 	}
 }
 
+func verifyAPIToken(tokenString string, SECRET string) error {
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return []byte(SECRET), nil
+	})
+
+	if err != nil {
+		return &fiber.Error{Code: 403, Message: config.TOKEN_EXPIRED_ERROR}
+	}
+
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		if float64(time.Now().Unix()) > claims["exp"].(float64) {
+			return &fiber.Error{Code: 403, Message: "API Token is expired."}
+		}
+
+		return nil
+	} else {
+		return &fiber.Error{Code: 403, Message: "Invalid Token"}
+	}
+}
+
 func Protect(c *fiber.Ctx) error {
 	authHeader := c.Get("Authorization")
 	tokenArr := strings.Split(authHeader, " ")
@@ -59,7 +82,54 @@ func Protect(c *fiber.Ctx) error {
 	tokenString := tokenArr[1]
 
 	var user models.LogUser
-	err := verifyToken(tokenString, &user)
+	err := verifyUserToken(tokenString, &user)
+	if err != nil {
+		return err
+	}
+
+	c.Set("loggedInUserID", fmt.Sprint(user.ID))
+	c.Set("Resource", string(models.ADMIN))
+
+	return c.Next()
+}
+
+func APIProtect(c *fiber.Ctx) error {
+	authHeader := strings.Split(c.Get("Authorization"), " ")
+
+	if len(authHeader) != 2 {
+		return &fiber.Error{Code: 401, Message: "Not Authorized to use this API."}
+	}
+
+	jwtString := authHeader[1]
+
+	apiToken := c.Get("API-TOKEN")
+	if apiToken == "" {
+		return &fiber.Error{Code: 403, Message: "Not Authorized to use this API."}
+	}
+
+	var err error
+
+	switch apiToken {
+	case initializers.CONFIG.BACKEND_TOKEN:
+		err = verifyAPIToken(jwtString, initializers.CONFIG.BACKEND_SECRET)
+		c.Set("Resource", string(models.BACKEND))
+
+	case initializers.CONFIG.ML_TOKEN:
+		err = verifyAPIToken(jwtString, initializers.CONFIG.ML_SECRET)
+		c.Set("Resource", string(models.ML))
+
+	case initializers.CONFIG.SOCKETS_TOKEN:
+		err = verifyAPIToken(jwtString, initializers.CONFIG.SOCKETS_SECRET)
+		c.Set("Resource", string(models.SOCKETS))
+
+	case initializers.CONFIG.MAILER_TOKEN:
+		err = verifyAPIToken(jwtString, initializers.CONFIG.MAILER_SECRET)
+		c.Set("Resource", string(models.MAILER))
+
+	default:
+		err = fmt.Errorf("not authorized to use this api, invalid api token")
+	}
+
 	if err != nil {
 		return err
 	}

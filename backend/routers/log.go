@@ -8,11 +8,11 @@ import (
 )
 
 func LogRouter(app *fiber.App) {
-	logRoutes := app.Group("/", middlewares.Protect)
+	app.Post("/logger/api", middlewares.APIProtect, controllers.AddLog)
 
+	logRoutes := app.Group("/logger", middlewares.Protect)
 	logRoutes.Get("/", controllers.GetLogs)
-	logRoutes.Get("/filter_data", controllers.GetFilterData)
 	logRoutes.Post("/", controllers.AddLog)
-
+	logRoutes.Get("/filter_data", controllers.GetFilterData)
 	logRoutes.Delete("/:logID", middlewares.UserAuthorization(models.Manager), controllers.DeleteLog)
 }
