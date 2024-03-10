@@ -4,7 +4,6 @@ import (
 	"github.com/Pratham-Mishra04/interact-admin-microservice/config"
 	"github.com/Pratham-Mishra04/interact-admin-microservice/initializers"
 	"github.com/Pratham-Mishra04/interact-admin-microservice/routers"
-	"github.com/Pratham-Mishra04/interact-admin-microservice/scripts"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -15,10 +14,6 @@ func init() {
 	initializers.ConnectToDB()
 	initializers.ConnectToCache()
 	initializers.AutoMigrate()
-
-	if initializers.CONFIG.POPULATE_USERS {
-		scripts.PopulateUsers()
-	}
 
 	config.AddLogger()
 }

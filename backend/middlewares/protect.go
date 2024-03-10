@@ -48,7 +48,7 @@ func verifyUserToken(tokenString string, user *models.LogUser) error {
 	}
 }
 
-func verifyAPIToken(tokenString string, SECRET string) error {
+func verifyAPIToken(tokenString string, SECRET string, resource models.RESOURCE) error {
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
@@ -64,7 +64,10 @@ func verifyAPIToken(tokenString string, SECRET string) error {
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			return &fiber.Error{Code: 403, Message: "API Token is expired."}
 		}
-
+		jwtResource, ok := claims["sub"]
+		if !ok || resource != jwtResource {
+			return &fiber.Error{Code: 401, Message: "Invalid Resource in JWT claims."}
+		}
 		return nil
 	} else {
 		return &fiber.Error{Code: 403, Message: "Invalid Token"}
@@ -111,19 +114,19 @@ func APIProtect(c *fiber.Ctx) error {
 
 	switch apiToken {
 	case initializers.CONFIG.BACKEND_TOKEN:
-		err = verifyAPIToken(jwtString, initializers.CONFIG.BACKEND_SECRET)
+		err = verifyAPIToken(jwtString, initializers.CONFIG.BACKEND_SECRET, models.BACKEND)
 		c.Set("Resource", string(models.BACKEND))
 
 	case initializers.CONFIG.ML_TOKEN:
-		err = verifyAPIToken(jwtString, initializers.CONFIG.ML_SECRET)
+		err = verifyAPIToken(jwtString, initializers.CONFIG.ML_SECRET, models.ML)
 		c.Set("Resource", string(models.ML))
 
 	case initializers.CONFIG.SOCKETS_TOKEN:
-		err = verifyAPIToken(jwtString, initializers.CONFIG.SOCKETS_SECRET)
+		err = verifyAPIToken(jwtString, initializers.CONFIG.SOCKETS_SECRET, models.SOCKETS)
 		c.Set("Resource", string(models.SOCKETS))
 
 	case initializers.CONFIG.MAILER_TOKEN:
-		err = verifyAPIToken(jwtString, initializers.CONFIG.MAILER_SECRET)
+		err = verifyAPIToken(jwtString, initializers.CONFIG.MAILER_SECRET, models.MAILER)
 		c.Set("Resource", string(models.MAILER))
 
 	default:
