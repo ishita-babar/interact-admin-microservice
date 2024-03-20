@@ -55,9 +55,8 @@ func verifyAPIToken(tokenString string, SECRET string, resource models.RESOURCE)
 		}
 		return []byte(SECRET), nil
 	})
-
 	if err != nil {
-		return &fiber.Error{Code: 403, Message: config.TOKEN_EXPIRED_ERROR}
+		return &fiber.Error{Code: 403, Message: err.Error()}
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {

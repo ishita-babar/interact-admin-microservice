@@ -28,16 +28,14 @@ type Config struct {
 	REDIS_PASSWORD string      `mapstructure:"REDIS_PASSWORD"`
 	JWT_SECRET     string      `mapstructure:"JWT_SECRET"`
 	FRONTEND_URL   string      `mapstructure:"FRONTEND_URL"`
-
-	BACKEND_SECRET string `mapstructure:"BACKEND_SECRET"`
-	ML_SECRET      string `mapstructure:"ML_SECRET"`
-	SOCKETS_SECRET string `mapstructure:"SOCKETS_SECRET"`
-	MAILER_SECRET  string `mapstructure:"MAILER_SECRET"`
-
-	BACKEND_TOKEN string `mapstructure:"BACKEND_TOKEN"`
-	ML_TOKEN      string `mapstructure:"ML_TOKEN"`
-	SOCKETS_TOKEN string `mapstructure:"SOCKETS_TOKEN"`
-	MAILER_TOKEN  string `mapstructure:"MAILER_TOKEN"`
+	BACKEND_SECRET string      `mapstructure:"BACKEND_SECRET"`
+	ML_SECRET      string      `mapstructure:"ML_SECRET"`
+	SOCKETS_SECRET string      `mapstructure:"SOCKETS_SECRET"`
+	MAILER_SECRET  string      `mapstructure:"MAILER_SECRET"`
+	BACKEND_TOKEN  string      `mapstructure:"BACKEND_TOKEN"`
+	ML_TOKEN       string      `mapstructure:"ML_TOKEN"`
+	SOCKETS_TOKEN  string      `mapstructure:"SOCKETS_TOKEN"`
+	MAILER_TOKEN   string      `mapstructure:"MAILER_TOKEN"`
 }
 
 var CONFIG Config

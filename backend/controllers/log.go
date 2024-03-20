@@ -20,14 +20,14 @@ func AddLog(c *fiber.Ctx) error {
 		return &fiber.Error{Code: 400, Message: err.Error()}
 	}
 
-	go func(body models.LogEntrySchema) {
+	go func(body models.LogEntrySchema, resource models.RESOURCE) {
 		var log models.Log
 
 		log.Level = body.Level
 		log.Title = body.Title
 		log.Description = body.Description
 		log.Path = body.Path
-		log.Resource = models.RESOURCE(c.Get("Resource", ""))
+		log.Resource = resource
 
 		timestamp, err := time.Parse(time.RFC3339, body.Timestamp)
 		if err == nil {
@@ -40,7 +40,7 @@ func AddLog(c *fiber.Ctx) error {
 		} else {
 			config.FlushCache()
 		}
-	}(reqBody)
+	}(reqBody, models.RESOURCE(c.Get("Resource", "")))
 
 	return c.Status(200).JSON(fiber.Map{
 		"status":  "success",

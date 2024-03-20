@@ -1,4 +1,4 @@
-FROM golang:1.21
+FROM golang:1.20
 
 # Set destination for COPY
 WORKDIR /app
@@ -17,7 +17,7 @@ RUN if [ ! -d "/app/logs" ]; then mkdir /app/logs; fi
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /main
 
-EXPOSE 3000
+EXPOSE 5000
 
 # Run
 CMD ["/main"]

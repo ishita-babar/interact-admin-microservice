@@ -1,0 +1,4 @@
+# RUN THIS
+
+sudo docker network connect interact_go_backend-network admin-microservice-api
+sudo docker network inspect interact_go_backend-network

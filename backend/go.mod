@@ -1,6 +1,6 @@
 module github.com/Pratham-Mishra04/interact-admin-microservice
 
-go 1.21.1
+go 1.20
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect

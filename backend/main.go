@@ -1,6 +1,8 @@
 package main
 
 import (
+	"log"
+
 	"github.com/Pratham-Mishra04/interact-admin-microservice/config"
 	"github.com/Pratham-Mishra04/interact-admin-microservice/initializers"
 	"github.com/Pratham-Mishra04/interact-admin-microservice/routers"
@@ -30,5 +32,8 @@ func main() {
 
 	routers.Config(app)
 
-	app.Listen(":" + initializers.CONFIG.PORT)
+	err := app.Listen(":" + initializers.CONFIG.PORT)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
