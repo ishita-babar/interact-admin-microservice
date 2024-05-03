@@ -25,10 +25,8 @@ services:
       - backend-network
 
   postgres:
+    image: postgres:16
     container_name: admin-microservice-postgres-db
-    build:
-      context: .
-      dockerfile: db.Dockerfile
     restart: always
     ports:
       - 5432:${DB_PORT}
