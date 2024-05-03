@@ -6,6 +6,7 @@ import (
 	"github.com/Pratham-Mishra04/interact-admin-microservice/config"
 	"github.com/Pratham-Mishra04/interact-admin-microservice/initializers"
 	"github.com/Pratham-Mishra04/interact-admin-microservice/routers"
+	"github.com/Pratham-Mishra04/interact-admin-microservice/scripts"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/helmet"
 	"github.com/gofiber/fiber/v2/middleware/logger"
@@ -18,7 +19,7 @@ func init() {
 	initializers.AutoMigrate()
 
 	config.AddLogger()
-	// scripts.PopulateLogs()
+	scripts.PopulateLogs()
 }
 
 func main() {
