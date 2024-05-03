@@ -32,6 +32,7 @@ const LogCard = ({ log, setLogs }: Props) => {
     switch (log.level) {
       case 'info':
         return '#DCF9FD';
+      case 'fatal':
       case 'error':
         return '#FFBABA';
       case 'debug':
@@ -56,9 +57,10 @@ const LogCard = ({ log, setLogs }: Props) => {
         <div className="w-1/12 flex-center max-md:w-2/6 max-md:text-xs">
           {moment(log.timestamp).format('DD MMM YY')}
         </div>
-        <div className={`${userRole == 'Manager' ? 'w-3/12' : 'w-4/12'} flex-center max-md:w-3/6 max-md:text-xs`}>
+        <div className={`${userRole == 'Manager' ? 'w-2/12' : 'w-3/12'} flex-center max-md:w-3/6 max-md:text-xs`}>
           {log.title}
         </div>
+        <div className="w-1/12 flex-center max-md:w-3/6 max-md:text-xs">{log.resource}</div>
         <div className="w-1/12 flex-center max-md:w-1/6 max-md:text-xs">
           <div
             style={{ backgroundColor: getLogColor() }}
@@ -67,8 +69,8 @@ const LogCard = ({ log, setLogs }: Props) => {
             {log.level}
           </div>
         </div>
-        <div className="w-1/12 flex-center max-md:hidden">{log.description}</div>
-        <div className="w-1/12 flex-center max-md:hidden">{log.path}</div>
+        <div className="w-3/12 flex-center max-md:hidden text-xs">{log.description}</div>
+        <div className="w-2/12 flex-center max-md:hidden text-sm">{log.path}</div>
         {userRole == 'Manager' && (
           <div className="w-1/12 flex-center">
             <X onClick={() => setClickedOnDelete(true)} className="cursor-pointer" size={20} />

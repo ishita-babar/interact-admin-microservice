@@ -30,7 +30,7 @@ const Filters = ({ setShow }: Props) => {
   }, []);
 
   const fetchFilterData = async () => {
-    const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/filter_data`;
+    const URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/logger/filter_data`;
     const res = await getHandler(URL);
     if (res.statusCode == 200) {
       const filterData = res.data.filterData;

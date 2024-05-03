@@ -43,12 +43,13 @@ const Home = () => {
   const [search, setSearch] = useState('');
 
   const fetchLogs = async (pageIndex: number) => {
-    const URL = buildURL(`${process.env.NEXT_PUBLIC_BACKEND_URL}?page=${pageIndex}&limit=${10}`, router.query);
+    const URL = buildURL(`${process.env.NEXT_PUBLIC_BACKEND_URL}/logger?page=${pageIndex}&limit=${10}`, router.query);
     const res = await getHandler(URL);
     if (res.statusCode == 200) {
       if (pageIndex == 1) {
         const logsData: Log[] = res.data.logs || [];
         setLogs(logsData);
+        console.log(logsData);
         if (logsData.length == 0) setHasMore(false);
         setPage(2);
       } else {
@@ -93,7 +94,8 @@ const Home = () => {
       <div className="w-[95%] h-16 mx-auto border-b-[1px] border-gray-400 flex text-base font-semibold text-gray-500">
         <div className="w-1/12 flex-center max-md:hidden">Time</div>
         <div className="w-1/12 flex-center max-md:w-2/6">Date</div>
-        <div className={`${userRole == 'Manager' ? 'w-3/12' : 'w-4/12'} flex-center max-md:w-3/6`}>Title</div>
+        <div className={`${userRole == 'Manager' ? 'w-2/12' : 'w-3/12'} flex-center max-md:w-3/6`}>Title</div>
+        <div className="w-1/12 flex-center max-md:w-1/6">Resource</div>
         <div className="w-1/12 flex-center max-md:w-1/6">Level</div>
         <div className="w-3/12 flex-center max-md:hidden">Description</div>
         <div className="w-2/12 flex-center max-md:hidden">Path</div>

@@ -4,6 +4,7 @@ export interface Log {
   title: string;
   description: string;
   path: string;
+  resource: string;
   timestamp: Date;
 }
 

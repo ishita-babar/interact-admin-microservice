@@ -18,6 +18,7 @@ func init() {
 	initializers.AutoMigrate()
 
 	config.AddLogger()
+	// scripts.PopulateLogs()
 }
 
 func main() {

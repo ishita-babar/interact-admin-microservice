@@ -9,7 +9,9 @@ import (
 )
 
 func genericSearch(db *gorm.DB, field, value string) *gorm.DB {
-	if value != "" {
+	if field == "message" {
+		return db.Where("title ILIKE ?", "%"+value+"%").Or("description ILIKE ?", "%"+value+"%")
+	} else if value != "" {
 		return db.Where(field+" ILIKE ?", "%"+value+"%")
 	}
 	return db
@@ -52,7 +54,7 @@ func timestampSearch(db *gorm.DB, start, end string) *gorm.DB {
 
 func Search(c *fiber.Ctx) func(db *gorm.DB) *gorm.DB {
 	return func(db *gorm.DB) *gorm.DB {
-		fields := []string{"title", "level", "path"}
+		fields := []string{"title", "level", "path", "message"}
 
 		for _, field := range fields {
 			value := c.Query(field, "")
