@@ -65,7 +65,7 @@ const SignUp = () => {
   return (
     <>
       <Head>
-        <title>Sign Up | Interact</title>
+        <title>Sign Up</title>
       </Head>
       <div className="w-screen h-screen flex-center">
         <div className="w-full max-lg:w-full h-full font-primary py-8 px-8 flex flex-col justify-start items-center gap-32">
