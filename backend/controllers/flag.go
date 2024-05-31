@@ -97,6 +97,8 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 			}
 		}
 
+		//TODO removed from flag email
+
 		return c.Status(200).JSON(fiber.Map{
 			"status":  "success",
 			"message": "Flag Removed",

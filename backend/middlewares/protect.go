@@ -104,7 +104,7 @@ func APIProtect(c *fiber.Ctx) error {
 
 	jwtString := authHeader[1]
 
-	apiToken := c.Get("API-TOKEN")
+	apiToken := c.Get("api-token")
 	if apiToken == "" {
 		return &fiber.Error{Code: 403, Message: "Not Authorized to use this API."}
 	}

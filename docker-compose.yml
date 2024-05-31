@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  frontend:
+    container_name: interact-admin-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./frontend/.env
+    networks:
+      - interact-admin-network
+
+  backend:
+    container_name: interact-admin-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5050:${PORT:-5050}"
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./backend/logs:/app/logs/
+    networks:
+      - interact-admin-network
+
+networks:
+  interact-admin-network:
+    driver: bridge

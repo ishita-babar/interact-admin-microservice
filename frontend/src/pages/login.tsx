@@ -41,9 +41,6 @@ const Login = () => {
           Cookies.set('id', user.id, {
             expires: Number(process.env.NEXT_PUBLIC_COOKIE_EXPIRATION_TIME),
           });
-          Cookies.set('role', user.role, {
-            expires: Number(process.env.NEXT_PUBLIC_COOKIE_EXPIRATION_TIME),
-          });
           router.push('/');
         }
       })

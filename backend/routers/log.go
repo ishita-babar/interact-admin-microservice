@@ -8,7 +8,7 @@ import (
 )
 
 func LogRouter(app *fiber.App) {
-	app.Post("/logger/api", controllers.AddLog)
+	app.Post("/logger/api", middlewares.APIProtect, controllers.AddLog)
 
 	logRoutes := app.Group("/logger", middlewares.Protect)
 	logRoutes.Get("/", controllers.GetLogs)

@@ -8,7 +8,7 @@ export interface Log {
   timestamp: Date;
 }
 
-export interface User {
+export interface LogUser {
   id: string;
   username: string;
   role: string;
@@ -64,7 +64,6 @@ export interface User {
   bio: string;
   title: string;
   tagline: string;
-  profile: Profile;
   followers: User[];
   following: User[];
   posts: Post[];
@@ -80,5 +79,50 @@ export interface User {
   lastViewed: Project[];
   isVerified: boolean;
   isOrganization: boolean;
-  organization: Organization | null;
+}
+
+export interface Project {
+  id: string;
+  slug: string;
+  userID: string;
+  title: string;
+  tagline: string;
+  coverPic: string;
+  blurHash: string;
+  description: string;
+  page: string;
+  user: User;
+  likedBy: User[];
+  comments: Comment[];
+  noLikes: number;
+  noShares: number;
+  noComments: number;
+  noImpressions: number;
+  tags: string[];
+  category: string;
+  openings: Opening[];
+  hashes: string[];
+  isPrivate: boolean;
+  views: number;
+  totalNoViews: number;
+  noMembers: number;
+  privateLinks: string[];
+  links: string[];
+  createdAt: Date;
+}
+
+export interface Opening {
+  id: string;
+  projectID: string;
+  project: Project | null;
+  userID: string;
+  user: User;
+  title: string;
+  description: string;
+  applications: [];
+  noApplications: number;
+  noImpressions: number;
+  tags: string[];
+  active: boolean;
+  createdAt: Date;
 }
