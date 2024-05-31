@@ -10,8 +10,6 @@ services:
       - "5000:5000"
     env_file:
       - ./frontend/.env
-    networks:
-      - interact-admin-network
 
   backend:
     container_name: interact-admin-backend
@@ -20,14 +18,15 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "5050:${PORT:-5050}"
+      - "6000:6000"
     env_file:
       - ./backend/.env
     volumes:
       - ./backend/logs:/app/logs/
     networks:
-      - interact-admin-network
+      - default
+      - interact_go_backend-network
 
 networks:
-  interact-admin-network:
-    driver: bridge
+  interact_go_backend-network:
+    external: true
