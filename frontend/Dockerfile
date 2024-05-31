@@ -22,6 +22,6 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/next.config.js ./next.config.js
 
-EXPOSE 8000
+EXPOSE 5000
 
 CMD [ "npm", "run", "start" ]

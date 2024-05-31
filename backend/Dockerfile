@@ -17,7 +17,7 @@ RUN if [ ! -d "/app/logs" ]; then mkdir /app/logs; fi
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /main
 
-EXPOSE 5000
+EXPOSE 5050
 
 # Run
 CMD ["/main"]
