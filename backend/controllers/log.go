@@ -40,7 +40,7 @@ func AddLog(c *fiber.Ctx) error {
 		} else {
 			config.FlushCache()
 		}
-	}(reqBody, models.RESOURCE(c.Get("Resource", "")))
+	}(reqBody, models.RESOURCE(c.GetRespHeader("Resource", "")))
 
 	return c.Status(200).JSON(fiber.Map{
 		"status":  "success",
