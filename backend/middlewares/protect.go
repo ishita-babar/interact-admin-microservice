@@ -63,8 +63,9 @@ func verifyAPIToken(tokenString string, SECRET string, resource models.RESOURCE)
 		if float64(time.Now().Unix()) > claims["exp"].(float64) {
 			return &fiber.Error{Code: 403, Message: "API Token is expired."}
 		}
-		jwtResource, ok := claims["sub"]
-		if !ok || resource != jwtResource {
+		jwtResource, ok := claims["sub"].(string)
+
+		if !ok || strings.Compare(string(resource), jwtResource) == 1 {
 			return &fiber.Error{Code: 401, Message: "Invalid Resource in JWT claims."}
 		}
 		return nil
