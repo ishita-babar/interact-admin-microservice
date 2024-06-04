@@ -6,6 +6,9 @@ import Loader from '@/components/loader';
 import { Post } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import PostComponent from '@/components/post';
+import BaseWrapper from '@/wrappers/base';
+import Sidebar from '@/components/common/sidebar';
+import MainWrapper from '@/wrappers/main';
 
 const Posts = () => {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -41,27 +44,32 @@ const Posts = () => {
   }, []);
 
   return (
-    <div className="w-full h-full p-4">
-      {loading ? (
-        <div className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-full">
-          <Loader />
-        </div>
-      ) : (
-        <InfiniteScroll
-          className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-screen flex flex-col gap-2 max-lg:px-4 pb-base_padding"
-          dataLength={posts.length}
-          next={getPosts}
-          hasMore={hasMore}
-          loader={<Loader />}
-        >
-          {posts.length === 0 ? (
-            <div>No Flagged Posts.</div>
+    <BaseWrapper>
+      <Sidebar index={4} />
+      <MainWrapper>
+        <div className="w-full h-full p-4">
+          {loading ? (
+            <div className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-full">
+              <Loader />
+            </div>
           ) : (
-            posts.map(post => <PostComponent key={post.id} post={post} setPosts={setPosts} />)
+            <InfiniteScroll
+              className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-screen flex flex-col gap-2 max-lg:px-4 pb-base_padding"
+              dataLength={posts.length}
+              next={getPosts}
+              hasMore={hasMore}
+              loader={<Loader />}
+            >
+              {posts.length === 0 ? (
+                <div>No Flagged Posts.</div>
+              ) : (
+                posts.map(post => <PostComponent key={post.id} post={post} setPosts={setPosts} />)
+              )}
+            </InfiniteScroll>
           )}
-        </InfiniteScroll>
-      )}
-    </div>
+        </div>
+      </MainWrapper>
+    </BaseWrapper>
   );
 };
 
