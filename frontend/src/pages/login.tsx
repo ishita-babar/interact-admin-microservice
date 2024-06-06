@@ -42,10 +42,12 @@ const Login = () => {
             expires: Number(process.env.NEXT_PUBLIC_COOKIE_EXPIRATION_TIME),
           });
           router.push('/');
+        } else {
+          if (res.data.message) Toaster.stopLoad(toaster, res.data.message, 0);
+          else Toaster.stopLoad(toaster, 'Internal Server Error', 0);
         }
       })
       .catch(err => {
-        console.log(err);
         if (err.response?.data?.message) Toaster.stopLoad(toaster, err.response.data.message, 0);
         else if (err.response?.data) Toaster.stopLoad(toaster, err.response.data, 0);
         else {
