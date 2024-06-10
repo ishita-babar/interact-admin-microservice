@@ -55,4 +55,5 @@ type User struct {
 	OrganizationStatus        bool           `gorm:"default:false" json:"isOrganization"`
 	Active                    bool           `gorm:"default:true" json:"-"`
 	CreatedAt                 time.Time      `gorm:"default:current_timestamp;index:idx_created_at,sort:desc" json:"-"`
+	IsFlagged   bool           `gorm:"default:false" json:"-"`
 }

@@ -30,6 +30,7 @@ func GetFlaggedItems(itemType string) func(c *fiber.Ctx) error {
 				"message":  "",
 				"comments": comments,
 			})
+
 		case "post":
 			var posts []models.Post
 			if err := paginatedDB.
@@ -49,7 +50,105 @@ func GetFlaggedItems(itemType string) func(c *fiber.Ctx) error {
 				"message": "",
 				"posts":   posts,
 			})
+		
+		case "project":
+			var projects []models.Project
+			if err := paginatedDB.
+				Preload("User").
+				Where("is_flagged=?", true).
+				Order("created_at DESC").
+				Find(&projects).Error; err != nil {
+				return &fiber.Error{Code: 500, Message: config.DATABASE_ERROR}
+			}
+
+			return c.Status(200).JSON(fiber.Map{
+				"status":  "success",
+				"message": "",
+				"projects":  projects,
+			})
+
+		case "user":
+			var users []models.User
+			if err := paginatedDB.
+				Where("is_flagged=?", true).
+				Order("created_at DESC").
+				Find(&users).Error; err != nil {
+				return &fiber.Error{Code: 500, Message: config.DATABASE_ERROR}
+			}
+
+			return c.Status(200).JSON(fiber.Map{
+				"status":  "success",
+				"message": "",
+				"users":  users,
+			})
+
+		case "event":
+			var events []models.Event
+			if err := paginatedDB.
+				Preload("Organization").
+				Where("is_flagged=?", true).
+				Order("created_at DESC").
+				Find(&events).Error; err != nil {
+				return &fiber.Error{Code: 500, Message: config.DATABASE_ERROR}
+			}
+
+			return c.Status(200).JSON(fiber.Map{
+				"status":  "success",
+				"message": "",
+				"events":  events,
+			})
+
+		case "opening":
+			var openings []models.Opening
+			if err := paginatedDB.
+				Preload("Organization").
+				Preload("Project").
+				Preload("User").
+				Where("is_flagged=?", true).
+				Order("created_at DESC").
+				Find(&openings).Error; err != nil {
+				return &fiber.Error{Code: 500, Message: config.DATABASE_ERROR}
+			}
+
+			return c.Status(200).JSON(fiber.Map{
+				"status":  "success",
+				"message": "",
+				"openings":  openings,
+			})
+
+		case "announcement":
+			var announcements []models.Announcement
+			if err := paginatedDB.
+				Preload("Organization").
+				Where("is_flagged=?", true).
+				Order("created_at DESC").
+				Find(&announcements).Error; err != nil {
+					return &fiber.Error{Code: 500, Message: config.DATABASE_ERROR}
+				}
+
+				return c.Status(200).JSON(fiber.Map{
+					"status": "success",
+					"message": "",
+					"announcements": announcements,
+				})
+				
+		case "poll":
+			var polls []models.Poll
+			if err := paginatedDB.
+				Preload("Organization").
+				Where("is_flagged=?", true).
+				Order("created_at DESC").
+				Find(&polls).Error; err != nil {
+					return &fiber.Error{Code: 500, Message: config.DATABASE_ERROR}
+				}
+
+				return c.Status(200).JSON(fiber.Map{
+					"status": "success",
+					"message": "",
+					"polls": polls,
+				})
 		}
+		
 
 		return c.Status(500).JSON(fiber.Map{
 			"status":  "failed",
