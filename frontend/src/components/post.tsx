@@ -19,7 +19,7 @@ interface Props {
   setPosts: React.Dispatch<React.SetStateAction<Post[]>>;
 }
 
-const Post = ({ post, setPosts }: Props) => {
+const PostComponent = ({ post, setPosts }: Props) => {
   const removeFlag = () => {
     const toaster = Toaster.startLoad('Removing Flag', post.id);
     const URL = `/flags/posts/${post.id}`;
@@ -117,4 +117,4 @@ const Post = ({ post, setPosts }: Props) => {
   );
 };
 
-export default Post;
+export default PostComponent;

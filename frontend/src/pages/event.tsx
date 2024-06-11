@@ -3,25 +3,25 @@ import Toaster from '@/utils/toaster';
 import React, { useEffect, useState } from 'react';
 import { SERVER_ERROR } from '@/config/errors';
 import Loader from '@/components/loader';
-import { Comment } from '@/types';
+import { Event } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import CommentComponent from '@/components/comment';
+import EventComponent from '@/components/event';
 
-const Comments = () => {
-  const [comments, setComments] = useState<Comment[]>([]);
+const Events = () => {
+  const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
-  const getComments = () => {
+  const getEvents = () => {
     setLoading(true);
-    const URL = `/flags/comments?page=${page}&limit=${10}`;
+    const URL = `/flags/events?page=${page}&limit=${10}`;
     getHandler(URL)
       .then(res => {
         if (res.statusCode === 200) {
-          const addedComments = [...comments, ...(res.data.posts || [])];
-          if (addedComments.length === comments.length) setHasMore(false);
-          setComments(addedComments);
+          const addedEvents = [...events, ...(res.data.events || [])];
+          if (addedEvents.length === events.length) setHasMore(false);
+          setEvents(addedEvents);
           setPage(prev => prev + 1);
           setLoading(false);
         } else {
@@ -37,7 +37,7 @@ const Comments = () => {
   };
 
   useEffect(() => {
-    getComments();
+    getEvents();
   }, []);
 
   return (
@@ -49,15 +49,15 @@ const Comments = () => {
       ) : (
         <InfiniteScroll
           className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-screen flex flex-col gap-2 max-lg:px-4 pb-base_padding"
-          dataLength={comments.length}
-          next={getComments}
+          dataLength={events.length}
+          next={getEvents}
           hasMore={hasMore}
           loader={<Loader />}
         >
-          {comments.length === 0 ? (
-            <div>No Flagged Comments.</div>
+          {events.length === 0 ? (
+            <div>No Flagged events.</div>
           ) : (
-            comments.map(comment => <CommentComponent key={comment.id} comment={comment} setComments={setComments} />)
+            events.map(event => <EventComponent key={event.id} event={event} setEvents={setEvents} />)
           )}
         </InfiniteScroll>
       )}
@@ -65,4 +65,4 @@ const Comments = () => {
   );
 };
 
-export default Comments;
+export default Events;
