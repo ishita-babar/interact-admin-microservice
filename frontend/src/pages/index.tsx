@@ -51,7 +51,6 @@ const Home = () => {
       if (pageIndex == 1) {
         const logsData: Log[] = res.data.logs || [];
         setLogs(logsData);
-        console.log(logsData);
         if (logsData.length == 0) setHasMore(false);
         setPage(2);
       } else {

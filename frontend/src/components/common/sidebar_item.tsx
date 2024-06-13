@@ -14,7 +14,7 @@ interface Props {
 const SidebarItem = ({ title, icon, active, setActive, index, url = '', onClick }: Props) => {
   return (
     <Link
-      href={`/${url != '' ? url : title.toLowerCase()}`}
+      href={`${url != '' ? url : '/' + title.toLowerCase()}`}
       onClick={() => {
         setActive(index);
         if (onClick) onClick();
