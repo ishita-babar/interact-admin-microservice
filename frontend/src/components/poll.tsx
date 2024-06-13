@@ -57,6 +57,9 @@ const PollComponent = ({ poll, setPolls }: Props) => {
               {poll.user.name}
               {poll.user.isOrganization ? <Buildings weight="duotone" /> : <></>}
               <div className="text-xs font-normal text-gray-500">@{poll.user.username}</div>
+              <div className="text-xs font-normal text-gray-500">@{poll.title}</div>
+              <div className="text-xs font-normal text-gray-500">@{poll.content}</div>
+              <div className="text-xs font-normal text-gray-500">@{poll.createdAt.toLocaleDateString()}</div>
             </Link>
           </div>
         </div>

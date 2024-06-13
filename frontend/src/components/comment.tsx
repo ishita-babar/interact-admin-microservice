@@ -57,6 +57,8 @@ const CommentComponent = ({ comment, setComments }: Props) => {
               {comment.user.name}
               {comment.user.isOrganization ? <Buildings weight="duotone" /> : <></>}
               <div className="text-xs font-normal text-gray-500">@{comment.user.username}</div>
+              <div className="text-xs font-normal text-gray-500">@{comment.content}</div>
+              <div className="text-xs font-normal text-gray-500">@{comment.createdAt.toLocaleDateString()}</div>
             </Link>
           </div>
         </div>

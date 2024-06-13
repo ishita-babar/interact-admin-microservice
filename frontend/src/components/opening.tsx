@@ -57,6 +57,10 @@ const OpeningComponent = ({ opening, setOpenings }: Props) => {
               {opening.user.name}
               {opening.user.isOrganization ? <Buildings weight="duotone" /> : <></>}
               <div className="text-xs font-normal text-gray-500">@{opening.user.username}</div>
+              <div className="text-xs font-normal text-gray-500">@{opening.projectID}</div>
+              <div className="text-xs font-normal text-gray-500">@{opening.title}</div>
+              <div className="text-xs font-normal text-gray-500">@{opening.description}</div>
+              <div className="text-xs font-normal text-gray-500">@{opening.createdAt.toLocaleDateString()}</div>
             </Link>
           </div>
         </div>

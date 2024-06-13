@@ -139,7 +139,6 @@ export interface Announcement {
   createdAt: Date;
   isEdited: boolean;
   isOpen: boolean;
-  taggedUsers: User[];
 }
 
 export interface Event {

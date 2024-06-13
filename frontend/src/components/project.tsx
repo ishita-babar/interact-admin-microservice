@@ -57,6 +57,10 @@ const ProjectComponent = ({ project, setProjects }: Props) => {
               {project.user.name}
               {project.user.isOrganization ? <Buildings weight="duotone" /> : <></>}
               <div className="text-xs font-normal text-gray-500">@{project.user.username}</div>
+              <div className="text-xs font-normal text-gray-500">@{project.title}</div>
+              <div className="text-xs font-normal text-gray-500">@{project.category}</div>
+              <div className="text-xs font-normal text-gray-500">@{project.description}</div>
+              <div className="text-xs font-normal text-gray-500">@{project.createdAt.toLocaleDateString()}</div>
             </Link>
           </div>
         </div>

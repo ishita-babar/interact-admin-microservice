@@ -46,7 +46,7 @@ const EventComponent = ({ event, setEvents }: Props) => {
               width={100}
               height={100}
               alt={'User Pic'}
-              src={`${USER_PROFILE_PIC_URL}/${event.user.profilePic}`}
+              src={`${USER_PROFILE_PIC_URL}/${event.coverPic}`}
               className={'rounded-full w-8 h-8'}
             />
           </Link>
@@ -57,6 +57,11 @@ const EventComponent = ({ event, setEvents }: Props) => {
               {event.user.name}
               {event.user.isOrganization ? <Buildings weight="duotone" /> : <></>}
               <div className="text-xs font-normal text-gray-500">@{event.user.username}</div>
+              <div className="text-xs font-normal text-gray-500">@{event.tagline}</div>
+              <div className="text-xs font-normal text-gray-500">@{event.title}</div>
+              <div className="text-xs font-normal text-gray-500">@{event.category}</div>
+              <div className="text-xs font-normal text-gray-500">@{event.description}</div>
+              <div className="text-xs font-normal text-gray-500">@{event.createdAt.toLocaleDateString()}</div>
             </Link>
           </div>
         </div>

@@ -57,6 +57,9 @@ const AnnouncementComponent = ({ announcement, setAnnouncements }: Props) => {
               {announcement.user.name}
               {announcement.user.isOrganization ? <Buildings weight="duotone" /> : <></>}
               <div className="text-xs font-normal text-gray-500">@{announcement.user.username}</div>
+              <div className="text-xs font-normal text-gray-500">@{announcement.title}</div>
+              <div className="text-xs font-normal text-gray-500">@{announcement.content}</div>
+              <div className="text-xs font-normal text-gray-500">@{announcement.createdAt.toLocaleDateString()}</div>
             </Link>
           </div>
         </div>
