@@ -180,7 +180,7 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 				return &fiber.Error{Code: 400, Message: config.DATABASE_ERROR}
 			}
 
-			err = helpers.SendMailReq(comment.User.Email, 71, &comment.User, "comment", comment)
+			err = helpers.SendMailReq(comment.User.Email, 70, &comment.User, "comment", comment)
 			if err != nil {
 				return &fiber.Error{Code: 500, Message: config.SERVER_ERROR}
 			}
@@ -220,10 +220,11 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 				return &fiber.Error{Code: 400, Message: config.DATABASE_ERROR}
 			}
 
-			err = helpers.SendMailReq(user.Email, 71, &user, "user", nil)
+			/*err = helpers.SendMailReq(user.Email, 71, &user, "user", nil)
 			if err != nil {
 				return &fiber.Error{Code: 500, Message: config.SERVER_ERROR}
-			}
+			}*/
+			// TODO : add type for Revoked user flag
 
 		case "project":
 			var project models.Project
@@ -240,7 +241,7 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 				return &fiber.Error{Code: 400, Message: config.DATABASE_ERROR}
 			}
 
-			err = helpers.SendMailReq(project.User.Email, 71, &project.User, "project", project)
+			err = helpers.SendMailReq(project.User.Email, 72, &project.User, "project", project)
 			if err != nil {
 				return &fiber.Error{Code: 500, Message: config.SERVER_ERROR}
 			}
@@ -260,7 +261,7 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 				return &fiber.Error{Code: 400, Message: config.DATABASE_ERROR}
 			}
 
-			err = helpers.SendMailReq(event.Organization.User.Email, 71, &event.Organization.User, "event", event)
+			err = helpers.SendMailReq(event.Organization.User.Email, 74, &event.Organization.User, "event", event)
 			if err != nil {
 				return &fiber.Error{Code: 500, Message: config.SERVER_ERROR}
 			}
@@ -280,7 +281,7 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 				return &fiber.Error{Code: 400, Message: config.DATABASE_ERROR}
 			}
 
-			err = helpers.SendMailReq(opening.User.Email, 71, &opening.User, "opening", opening)
+			err = helpers.SendMailReq(opening.User.Email, 73, &opening.User, "opening", opening)
 			if err != nil {
 				return &fiber.Error{Code: 500, Message: config.SERVER_ERROR}
 			}
@@ -300,7 +301,7 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 				return &fiber.Error{Code: 400, Message: config.DATABASE_ERROR}
 			}
 
-			err = helpers.SendMailReq(announcement.Organization.User.Email, 71, &announcement.Organization.User, "announcement", announcement)
+			err = helpers.SendMailReq(announcement.Organization.User.Email, 75, &announcement.Organization.User, "announcement", announcement)
 			if err != nil {
 				return &fiber.Error{Code: 500, Message: config.SERVER_ERROR}
 			}
@@ -320,7 +321,7 @@ func RemoveFlag(itemType string) func(c *fiber.Ctx) error {
 				return &fiber.Error{Code: 400, Message: config.DATABASE_ERROR}
 			}
 
-			err = helpers.SendMailReq(poll.Organization.User.Email, 71, &poll.Organization.User, "poll", poll)
+			err = helpers.SendMailReq(poll.Organization.User.Email, 76, &poll.Organization.User, "poll", poll)
 			if err != nil {
 				return &fiber.Error{Code: 500, Message: config.SERVER_ERROR}
 			}
