@@ -3,25 +3,25 @@ import Toaster from '@/utils/toaster';
 import React, { useEffect, useState } from 'react';
 import { SERVER_ERROR } from '@/config/errors';
 import Loader from '@/components/loader';
-import { Comment } from '@/types';
+import { Announcement } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import CommentComponent from '@/components/comment';
+import AnnouncementComponent from '@/components/announcement';
 
-const Comments = () => {
-  const [comments, setComments] = useState<Comment[]>([]);
+const Announcements = () => {
+  const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [loading, setLoading] = useState(true);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
 
-  const getComments = () => {
+  const getAnnouncements = () => {
     setLoading(true);
-    const URL = `/flags/comments?page=${page}&limit=${10}`;
+    const URL = `/flags/announcements?page=${page}&limit=${10}`;
     getHandler(URL)
       .then(res => {
         if (res.statusCode === 200) {
-          const addedComments = [...comments, ...(res.data.posts || [])];
-          if (addedComments.length === comments.length) setHasMore(false);
-          setComments(addedComments);
+          const addedAnnouncements = [...announcements, ...(res.data.announcements || [])];
+          if (addedAnnouncements.length === announcements.length) setHasMore(false);
+          setAnnouncements(addedAnnouncements);
           setPage(prev => prev + 1);
           setLoading(false);
         } else {
@@ -37,7 +37,7 @@ const Comments = () => {
   };
 
   useEffect(() => {
-    getComments();
+    getAnnouncements();
   }, []);
 
   return (
@@ -49,15 +49,15 @@ const Comments = () => {
       ) : (
         <InfiniteScroll
           className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-screen flex flex-col gap-2 max-lg:px-4 pb-base_padding"
-          dataLength={comments.length}
-          next={getComments}
+          dataLength={announcements.length}
+          next={getAnnouncements}
           hasMore={hasMore}
           loader={<Loader />}
         >
-          {comments.length === 0 ? (
-            <div>No Flagged Comments.</div>
+          {announcements.length === 0 ? (
+            <div>No Flagged Announcements.</div>
           ) : (
-            comments.map(comment => <CommentComponent key={comment.id} comment={comment} setComments={setComments} />)
+            announcements.map(announcement => <AnnouncementComponent key={announcement.id} announcement={announcement} setAnnouncements={setAnnouncements} />)
           )}
         </InfiniteScroll>
       )}
@@ -65,4 +65,4 @@ const Comments = () => {
   );
 };
 
-export default Comments;
+export default Announcements;

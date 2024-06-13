@@ -51,6 +51,7 @@ export interface Post {
 
 export interface User {
   id: string;
+  user: User;
   tags: string[];
   links: string[];
   email: string;
@@ -124,5 +125,52 @@ export interface Opening {
   noImpressions: number;
   tags: string[];
   active: boolean;
+  createdAt: Date;
+}
+
+export interface Announcement {
+  id: string;
+  user: User;
+  title: string;
+  content: string;
+  noLikes: number;
+  noShares: number;
+  noComments: number;
+  createdAt: Date;
+  isEdited: boolean;
+  isOpen: boolean;
+}
+
+export interface Event {
+  id: string;
+  title: string;
+  user: User;
+  tagline: string;
+  description: string;
+  tags: string[];
+  links: string[];
+  coordinators: User[];
+  startTime: Date;
+  endTime: Date;
+  location: string;
+  category: string;
+  coverPic: string;
+  blurHash: string;
+  noLikes: number;
+  noShares: number;
+  noComments: number;
+  noImpressions: number;
+  noViews: number;
+  createdAt: Date;
+}
+
+export interface Poll {
+  id: string;
+  user: User;
+  title: string;
+  content: string;
+  isMultiAnswer: boolean;
+  isOpen: boolean;
+  totalVotes: number;
   createdAt: Date;
 }
