@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Toaster from '@/utils/toaster';
 import { Buildings } from '@phosphor-icons/react';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import { USER_PROFILE_PIC_URL } from '@/config/routes';
+import { EVENT_PIC_URL } from '@/config/routes';
 import postHandler from '@/handlers/post_handler';
 import { SERVER_ERROR } from '@/config/errors';
 import { X } from '@phosphor-icons/react/dist/ssr';
@@ -46,7 +46,7 @@ const EventComponent = ({ event, setEvents }: Props) => {
               width={100}
               height={100}
               alt={'User Pic'}
-              src={`${USER_PROFILE_PIC_URL}/${event.coverPic}`}
+              src={`${EVENT_PIC_URL}/${event.coverPic}`}
               className={'rounded-full w-8 h-8'}
             />
           </Link>
