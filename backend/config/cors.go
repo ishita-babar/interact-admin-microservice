@@ -9,14 +9,18 @@ import (
 )
 
 func CORS() fiber.Handler {
-	return cors.New(cors.Config{
-		AllowOrigins: fmt.Sprintf("%s, %s, %s, %s, %s",
+	ALLOWED_ORIGINS := "*"
+	if initializers.CONFIG.ENV == initializers.ProductionEnv {
+		ALLOWED_ORIGINS = fmt.Sprintf("%s, %s, %s, %s, %s",
 			initializers.CONFIG.FRONTEND_URL,
 			initializers.CONFIG.BACKEND_URL,
 			initializers.CONFIG.MAILER_URL,
 			initializers.CONFIG.ML_URL,
 			initializers.CONFIG.WS_URL,
-		),
+		)
+	}
+	return cors.New(cors.Config{
+		AllowOrigins:     ALLOWED_ORIGINS,
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowMethods:     "GET, POST, PATCH, DELETE",
 		AllowCredentials: true,
