@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "5005:5005"
+      - "6000:6000"
     env_file:
       - ./backend/.env
     volumes:
