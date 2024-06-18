@@ -12,6 +12,7 @@ import {
   Ticket,
   UserCircle,
   WarningCircle,
+  ChatCircle
 } from '@phosphor-icons/react';
 import Cookies from 'js-cookie';
 import Toaster from '@/utils/toaster';
@@ -79,6 +80,7 @@ const Sidebar = ({ index }: Props) => {
           setActive={setActive}
         />
         <SidebarItem index={9} title="Polls" icon={<DotsNine size={24} />} active={active} setActive={setActive} />
+        <SidebarItem index={10} title="Comments" icon={<ChatCircle size={24} />} active={active} setActive={setActive} />
       </div>
 
       <ArrowLineLeft

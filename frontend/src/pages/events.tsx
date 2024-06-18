@@ -6,6 +6,9 @@ import Loader from '@/components/loader';
 import { Event } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import EventComponent from '@/components/event';
+import BaseWrapper from '@/wrappers/base';
+import Sidebar from '@/components/common/sidebar';
+import MainWrapper from '@/wrappers/main';
 
 const Events = () => {
   const [events, setEvents] = useState<Event[]>([]);
@@ -41,6 +44,9 @@ const Events = () => {
   }, []);
 
   return (
+    <BaseWrapper>
+      <Sidebar index={6} />
+      <MainWrapper>
     <div className="w-full h-full p-4">
       {loading ? (
         <div className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-full">
@@ -62,6 +68,8 @@ const Events = () => {
         </InfiniteScroll>
       )}
     </div>
+    </MainWrapper>
+    </BaseWrapper>
   );
 };
 

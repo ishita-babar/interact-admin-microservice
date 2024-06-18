@@ -6,6 +6,9 @@ import Loader from '@/components/loader';
 import { User } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import UserComponent from '@/components/user';
+import BaseWrapper from '@/wrappers/base';
+import Sidebar from '@/components/common/sidebar';
+import MainWrapper from '@/wrappers/main';
 
 const Users = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -41,6 +44,9 @@ const Users = () => {
   }, []);
 
   return (
+    <BaseWrapper>
+      <Sidebar index={3} />
+      <MainWrapper>
     <div className="w-full h-full p-4">
       {loading ? (
         <div className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-full">
@@ -62,6 +68,8 @@ const Users = () => {
         </InfiniteScroll>
       )}
     </div>
+    </MainWrapper>
+  </BaseWrapper>
   );
 };
 

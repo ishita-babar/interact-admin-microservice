@@ -6,6 +6,9 @@ import Loader from '@/components/loader';
 import { Comment } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import CommentComponent from '@/components/comment';
+import BaseWrapper from '@/wrappers/base';
+import Sidebar from '@/components/common/sidebar';
+import MainWrapper from '@/wrappers/main';
 
 const Comments = () => {
   const [comments, setComments] = useState<Comment[]>([]);
@@ -41,6 +44,9 @@ const Comments = () => {
   }, []);
 
   return (
+    <BaseWrapper>
+      <Sidebar index={10} />
+      <MainWrapper>
     <div className="w-full h-full p-4">
       {loading ? (
         <div className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-full">
@@ -62,6 +68,8 @@ const Comments = () => {
         </InfiniteScroll>
       )}
     </div>
+    </MainWrapper>
+    </BaseWrapper>
   );
 };
 

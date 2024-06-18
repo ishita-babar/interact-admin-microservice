@@ -6,6 +6,9 @@ import Loader from '@/components/loader';
 import { Opening } from '@/types';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import OpeningComponent from '@/components/opening';
+import BaseWrapper from '@/wrappers/base';
+import Sidebar from '@/components/common/sidebar';
+import MainWrapper from '@/wrappers/main';
 
 const Openings = () => {
   const [openings, setOpenings] = useState<Opening[]>([]);
@@ -41,6 +44,9 @@ const Openings = () => {
   }, []);
 
   return (
+    <BaseWrapper>
+      <Sidebar index={7} />
+      <MainWrapper>
     <div className="w-full h-full p-4">
       {loading ? (
         <div className="w-[45vw] mx-auto max-lg:w-[85%] max-md:w-full">
@@ -62,6 +68,8 @@ const Openings = () => {
         </InfiniteScroll>
       )}
     </div>
+    </MainWrapper>
+  </BaseWrapper>
   );
 };
 
